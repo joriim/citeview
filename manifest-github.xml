@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- CiteView Word add-in manifest.
+     All URLs point to https://joriim.github.io/citeview for local testing.
+     To host elsewhere (e.g. GitHub Pages), use the set-url script (see README). -->
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+           xsi:type="TaskPaneApp">
+  <Id>155752d7-2c79-4f44-8c1c-3aad890ccb32</Id>
+  <Version>0.1.0.0</Version>
+  <ProviderName>Biomitta Oy</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="CiteView" />
+  <Description DefaultValue="Click a citation in your draft to see the cited source with its key, relevant and somewhat relevant passages highlighted." />
+  <IconUrl DefaultValue="https://joriim.github.io/citeview/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://joriim.github.io/citeview/assets/icon-64.png" />
+  <SupportUrl DefaultValue="https://joriim.github.io/citeview/README.md" />
+  <AppDomains>
+    <AppDomain>https://joriim.github.io</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Document" />
+  </Hosts>
+  <Requirements>
+    <Sets DefaultMinVersion="1.3">
+      <Set Name="WordApi" MinVersion="1.3" />
+    </Sets>
+  </Requirements>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://joriim.github.io/citeview/src/taskpane.html" />
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title" />
+            <Description resid="GetStarted.Description" />
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl" />
+          </GetStarted>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabReferences">
+              <Group id="CiteView.Group">
+                <Label resid="Group.Label" />
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16" />
+                  <bt:Image size="32" resid="Icon.32" />
+                  <bt:Image size="80" resid="Icon.80" />
+                </Icon>
+                <Control xsi:type="Button" id="CiteView.Open">
+                  <Label resid="Button.Label" />
+                  <Supertip>
+                    <Title resid="Button.Label" />
+                    <Description resid="Button.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16" />
+                    <bt:Image size="32" resid="Icon.32" />
+                    <bt:Image size="80" resid="Icon.80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>CiteViewPane</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16" DefaultValue="https://joriim.github.io/citeview/assets/icon-16.png" />
+        <bt:Image id="Icon.32" DefaultValue="https://joriim.github.io/citeview/assets/icon-32.png" />
+        <bt:Image id="Icon.80" DefaultValue="https://joriim.github.io/citeview/assets/icon-80.png" />
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://joriim.github.io/citeview/src/taskpane.html" />
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://joriim.github.io/citeview/README.md" />
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="Group.Label" DefaultValue="CiteView" />
+        <bt:String id="Button.Label" DefaultValue="Show sources" />
+        <bt:String id="GetStarted.Title" DefaultValue="CiteView is ready" />
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="Button.Tooltip" DefaultValue="Open the source viewer. Put the cursor in a citation link to see the cited passages highlighted." />
+        <bt:String id="GetStarted.Description" DefaultValue="Open it from References → Show sources." />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

@@ -1,0 +1,14 @@
+[
+ {
+  "address": "sources/Virtanen2024.pdf",
+  "text": "(Virtanen et al. 2024)",
+  "comment": "Main evidence for the leaching claim: [key] \"Autumn application of cattle slurry increased nitrate leaching by 38 percent compared with spring application.\" [key] \"On organic soils the leaching losses were nearly twice those of clay soils.\" Also useful for the discussion: they recommend avoiding autumn manure on organic soils and timing by soil frost instead of calendar dates.",
+  "paraText": "Autumn manure application increases nitrate leaching on boreal soils, especially on organic soils (Virtanen et al. 2024)."
+ },
+ {
+  "address": "https://doi.org/10.5555/ssex.2024.0123",
+  "text": "(Virtanen et al. 2024)",
+  "comment": "Cited for the claim that freeze-thaw cycles explain most of the annual nitrous oxide emission and that summer fluxes are small.",
+  "paraText": "Freeze-thaw cycles dominate annual nitrous oxide emissions in the north (Virtanen et al. 2024)."
+ }
+]

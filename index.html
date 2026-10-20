@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CiteView for Word</title>
+  <link rel="icon" href="assets/icon-32.png" />
+  <style>
+    :root {
+      --bg: #fbfaf7; --fg: #1d1b20; --muted: #5f5b66; --line: #e4e0ea; --card: #ffffff;
+      --accent: #5b3fb8; --key: rgba(150, 90, 230, .35); --rel: rgba(40, 180, 90, .32); --some: rgba(255, 210, 0, .45);
+      --code: #f1eef6;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #17161a; --fg: #ecebef; --muted: #a8a3b0; --line: #2f2c36; --card: #1f1d23; --accent: #b49cff; --code: #2a2731; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif; }
+    main { max-width: 760px; margin: 0 auto; padding: 48px 16px 64px; }
+    header { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+    header img { width: 44px; height: 44px; }
+    h1 { font-size: 30px; margin: 0; letter-spacing: -.3px; }
+    .lede { font-size: 18px; color: var(--muted); margin: 6px 0 28px; }
+    mark { color: inherit; padding: 0 3px; border-radius: 3px; }
+    .k { background: var(--key); } .r { background: var(--rel); } .s { background: var(--some); }
+    h2 { font-size: 20px; margin: 40px 0 12px; }
+    h3 { font-size: 16px; margin: 0 0 6px; }
+    .cards { display: grid; gap: 12px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+    .card p, .card ol { margin: 6px 0 0; }
+    .card ol { padding-left: 20px; }
+    .btn { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; padding: 7px 14px; border-radius: 6px; font-size: 14px; margin: 8px 8px 0 0; }
+    @media (prefers-color-scheme: dark) { .btn { color: #17161a; } }
+    .btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    code, pre { background: var(--code); border-radius: 4px; font: 13.5px/1.5 ui-monospace, Consolas, monospace; }
+    code { padding: 1px 5px; word-break: break-word; }
+    pre { padding: 12px 14px; overflow-x: auto; margin: 8px 0; }
+    .muted { color: var(--muted); font-size: 14px; }
+    table { border-collapse: collapse; width: 100%; font-size: 15px; }
+    td { border-top: 1px solid var(--line); padding: 8px 6px; vertical-align: top; }
+    footer { margin-top: 48px; color: var(--muted); font-size: 13px; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="assets/icon-64.png" alt="" />
+    <h1>CiteView for Word</h1>
+  </header>
+  <p class="lede">Put the cursor on a citation in your draft. The cited PDF opens beside it with the passages you cited marked as
+    <mark class="k">key</mark>, <mark class="r">relevant</mark> and <mark class="s">some relevance</mark>.</p>
+
+  <h2>Install</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Word on Windows</h3>
+      <p>Download and run the installer, then restart Word. No admin rights needed.</p>
+      <a class="btn" href="install/install-windows.cmd" download>Download installer</a>
+      <a class="btn ghost" href="install/uninstall-windows.cmd" download>Uninstaller</a>
+      <p class="muted">Windows may warn about a downloaded script: choose “More info → Run anyway”. It only downloads the manifest below and registers it for Word.</p>
+    </div>
+    <div class="card">
+      <h3>Word on Mac</h3>
+      <ol>
+        <li>Download <a href="manifest-github.xml" download>manifest-github.xml</a>.</li>
+        <li>In Finder, press <code>⇧⌘G</code> and open <code>~/Library/Containers/com.microsoft.Word/Data/Documents/wef</code> (create the <code>wef</code> folder if missing).</li>
+        <li>Copy the manifest there and restart Word.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Word for the web</h3>
+      <ol>
+        <li>Download <a href="manifest-github.xml" download>manifest-github.xml</a>.</li>
+        <li>In Word, open Insert → Add-ins → More Settings → Upload My Add-in, and choose the file.</li>
+      </ol>
+    </div>
+  </div>
+  <p class="muted">Then open the add-in from <b>References → Show sources</b>.</p>
+
+  <h2>Use</h2>
+  <div class="cards">
+    <div class="card">
+      <ol>
+        <li>Click <b>Add folder</b> in the pane and pick the folder with your source PDFs. They are remembered.</li>
+        <li>Make each citation a hyperlink to its source: the PDF file, or its <code>doi.org</code> address.</li>
+        <li>Attach a Word comment to the citation saying what you cite from it.</li>
+        <li>Put the cursor in a citation.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h2>Writing the comment</h2>
+  <pre>Main evidence for the leaching claim:
+[key] "Autumn application of cattle slurry increased nitrate leaching by 38 percent"
+[rel] "On organic soils the leaching losses were nearly twice those of clay soils"
+They also recommend timing manure by soil frost instead of calendar dates.</pre>
+  <table>
+    <tr><td><code>[key] "text"</code> or just <code>"text"</code></td><td><mark class="k">key part</mark></td></tr>
+    <tr><td><code>[rel] "text"</code></td><td><mark class="r">relevant</mark></td></tr>
+    <tr><td><code>[some] "text"</code></td><td><mark class="s">some relevance</mark></td></tr>
+    <tr><td>other free text</td><td>matching sentences found automatically, marked <mark class="r">relevant</mark> or <mark class="s">some</mark></td></tr>
+  </table>
+  <p class="muted">Quotes don’t need to be exact. Automatic matching compares words, so use quotes when the comment and source are in different languages.</p>
+
+  <footer>Everything runs inside Word; PDFs stay on your computer. Source: <a href="https://github.com/joriim/citeview">github.com/joriim/citeview</a> · PDF.js © Mozilla, Apache-2.0.</footer>
+</main>
+</body>
+</html>

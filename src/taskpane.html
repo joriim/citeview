@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CiteView</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="stylesheet" href="taskpane.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">CiteView</div>
+    <div id="status" class="status">Loading…</div>
+  </header>
+
+  <section class="sources">
+    <button id="addPdfs" type="button">Add PDFs</button>
+    <button id="addFolder" type="button">Add folder</button>
+    <span id="sourceCount" class="muted">0 sources</span>
+    <button id="clearPdfs" type="button" class="link" title="Remove all stored PDFs">Clear</button>
+    <label class="muted toggle" title="Colour the active citation in the draft. Turn off if Track Changes is on."><input id="markToggle" type="checkbox" checked /> Mark in draft</label>
+    <input id="pdfInput" type="file" accept="application/pdf,.pdf" multiple hidden />
+    <input id="folderInput" type="file" webkitdirectory multiple hidden />
+    <input id="assignInput" type="file" accept="application/pdf,.pdf" hidden />
+  </section>
+
+  <section id="card" class="card" hidden>
+    <div class="cite-row">
+      <div>
+        <div id="citeText" class="cite-text"></div>
+        <div id="citeAddr" class="cite-addr"></div>
+      </div>
+      <button id="refresh" type="button" class="link" title="Re-read the citation at the cursor">↻</button>
+    </div>
+    <details id="commentBox">
+      <summary>Comment</summary>
+      <div id="commentText" class="comment"></div>
+    </details>
+    <div class="legend">
+      <label><input type="checkbox" data-level="key" checked /><span class="sw sw-key"></span>Key <b id="nKey">0</b></label>
+      <label><input type="checkbox" data-level="rel" checked /><span class="sw sw-rel"></span>Relevant <b id="nRel">0</b></label>
+      <label><input type="checkbox" data-level="some" checked /><span class="sw sw-some"></span>Some <b id="nSome">0</b></label>
+    </div>
+    <div id="missing" class="warn" hidden></div>
+    <div id="nosource" class="warn" hidden>
+      <div id="nosourceMsg"></div>
+      <div class="actions">
+        <button id="assign" type="button">Choose PDF for this citation</button>
+        <button id="openLink" type="button">Open link</button>
+      </div>
+    </div>
+    <div class="actions small">
+      <button id="nextHl" type="button" class="link">Next highlight ↓</button>
+      <button id="reassign" type="button" class="link">Use a different PDF</button>
+    </div>
+  </section>
+
+  <section id="hint" class="hint">
+    Put the cursor in a citation link in your draft. The cited PDF opens here with
+    <span class="sw sw-key"></span>key, <span class="sw sw-rel"></span>relevant and
+    <span class="sw sw-some"></span>somewhat relevant passages highlighted, based on the
+    comment attached to the citation.
+  </section>
+
+  <main id="viewer" class="viewer"></main>
+
+  <script type="module" src="taskpane.js"></script>
+</body>
+</html>
