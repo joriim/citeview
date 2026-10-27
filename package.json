@@ -1,6 +1,6 @@
 {
   "name": "citeview",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Word add-in: click a citation to see the cited PDF with key/relevant/some passages highlighted",
   "scripts": {
     "certs": "npx office-addin-dev-certs install",
@@ -8,7 +8,7 @@
     "sideload": "npx office-addin-debugging start manifest.xml desktop --app word --no-debug",
     "validate": "npx office-addin-manifest validate manifest.xml",
     "set-url": "node scripts/set-url.mjs",
-    "test": "node test/run-test.mjs"
+    "test": "node test/run-test.mjs && node test/slots-test.mjs"
   },
   "license": "MIT",
   "private": true,

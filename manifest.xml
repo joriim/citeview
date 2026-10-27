@@ -8,7 +8,7 @@
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
   <Id>7e04d43e-8ef7-43ad-a5ab-c4d43e1b53c0</Id>
-  <Version>0.1.0.0</Version>
+  <Version>0.2.0.0</Version>
   <ProviderName>Biomitta Oy</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="CiteView" />
@@ -28,7 +28,7 @@
     </Sets>
   </Requirements>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://localhost:3000/src/taskpane.html" />
+    <SourceLocation DefaultValue="https://localhost:3000/src/taskpane.html?slot=left" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -49,11 +49,11 @@
                   <bt:Image size="32" resid="Icon.32" />
                   <bt:Image size="80" resid="Icon.80" />
                 </Icon>
-                <Control xsi:type="Button" id="CiteView.Open">
-                  <Label resid="Button.Label" />
+                <Control xsi:type="Button" id="CiteView.Left">
+                  <Label resid="ButtonLeft.Label" />
                   <Supertip>
-                    <Title resid="Button.Label" />
-                    <Description resid="Button.Tooltip" />
+                    <Title resid="ButtonLeft.Label" />
+                    <Description resid="ButtonLeft.Tooltip" />
                   </Supertip>
                   <Icon>
                     <bt:Image size="16" resid="Icon.16" />
@@ -61,8 +61,24 @@
                     <bt:Image size="80" resid="Icon.80" />
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
-                    <TaskpaneId>CiteViewPane</TaskpaneId>
-                    <SourceLocation resid="Taskpane.Url" />
+                    <TaskpaneId>CiteViewLeft</TaskpaneId>
+                    <SourceLocation resid="TaskpaneLeft.Url" />
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="CiteView.Right">
+                  <Label resid="ButtonRight.Label" />
+                  <Supertip>
+                    <Title resid="ButtonRight.Label" />
+                    <Description resid="ButtonRight.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16" />
+                    <bt:Image size="32" resid="Icon.32" />
+                    <bt:Image size="80" resid="Icon.80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>CiteViewRight</TaskpaneId>
+                    <SourceLocation resid="TaskpaneRight.Url" />
                   </Action>
                 </Control>
               </Group>
@@ -78,17 +94,20 @@
         <bt:Image id="Icon.80" DefaultValue="https://localhost:3000/assets/icon-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/src/taskpane.html" />
+        <bt:Url id="TaskpaneLeft.Url" DefaultValue="https://localhost:3000/src/taskpane.html?slot=left" />
+        <bt:Url id="TaskpaneRight.Url" DefaultValue="https://localhost:3000/src/taskpane.html?slot=right" />
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://localhost:3000/README.md" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="Group.Label" DefaultValue="CiteView" />
-        <bt:String id="Button.Label" DefaultValue="Show sources" />
+        <bt:String id="ButtonLeft.Label" DefaultValue="Left source" />
+        <bt:String id="ButtonRight.Label" DefaultValue="Right source" />
         <bt:String id="GetStarted.Title" DefaultValue="CiteView is ready" />
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="Button.Tooltip" DefaultValue="Open the source viewer. Put the cursor in a citation link to see the cited passages highlighted." />
-        <bt:String id="GetStarted.Description" DefaultValue="Open it from References → Show sources." />
+        <bt:String id="ButtonLeft.Tooltip" DefaultValue="Source pane for the citation at the cursor (turquoise). Drag its title to the left edge of Word for a three-column view." />
+        <bt:String id="ButtonRight.Tooltip" DefaultValue="Source pane for the next citation (green)." />
+        <bt:String id="GetStarted.Description" DefaultValue="Open References → Left source and Right source." />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

@@ -9,7 +9,8 @@
 </head>
 <body>
   <header>
-    <div class="brand">CiteView</div>
+    <span class="slot-chip"></span>
+    <div class="brand"><span id="slotName">Source</span></div>
     <div id="status" class="status">Loading…</div>
   </header>
 
@@ -17,8 +18,8 @@
     <button id="addPdfs" type="button">Add PDFs</button>
     <button id="addFolder" type="button">Add folder</button>
     <span id="sourceCount" class="muted">0 sources</span>
-    <button id="clearPdfs" type="button" class="link" title="Remove all stored PDFs">Clear</button>
-    <label class="muted toggle" title="Colour the active citation in the draft. Turn off if Track Changes is on."><input id="markToggle" type="checkbox" checked /> Mark in draft</label>
+    <button id="clearPdfs" type="button" class="link" title="Remove all stored PDFs (both panes)">Clear</button>
+    <label class="muted toggle" title="Colour the citations in the draft with the pane colour. Turn off if Track Changes is on."><input id="markToggle" type="checkbox" checked /> Mark in draft</label>
     <input id="pdfInput" type="file" accept="application/pdf,.pdf" multiple hidden />
     <input id="folderInput" type="file" webkitdirectory multiple hidden />
     <input id="assignInput" type="file" accept="application/pdf,.pdf" hidden />
@@ -26,20 +27,20 @@
 
   <section id="card" class="card" hidden>
     <div class="cite-row">
-      <div>
+      <div class="cite-main">
         <div id="citeText" class="cite-text"></div>
         <div id="citeAddr" class="cite-addr"></div>
       </div>
-      <button id="refresh" type="button" class="link" title="Re-read the citation at the cursor">↻</button>
+      <button id="pin" type="button" class="pin" aria-pressed="false">📌</button>
     </div>
     <details id="commentBox">
       <summary>Comment</summary>
       <div id="commentText" class="comment"></div>
     </details>
     <div class="legend">
-      <label><input type="checkbox" data-level="key" checked /><span class="sw sw-key"></span>Key <b id="nKey">0</b></label>
-      <label><input type="checkbox" data-level="rel" checked /><span class="sw sw-rel"></span>Relevant <b id="nRel">0</b></label>
-      <label><input type="checkbox" data-level="some" checked /><span class="sw sw-some"></span>Some <b id="nSome">0</b></label>
+      <label><input type="checkbox" data-level="key" checked /><span class="sw hl-key"></span>Key <b id="nKey">0</b></label>
+      <label><input type="checkbox" data-level="rel" checked /><span class="sw hl-rel"></span>Relevant <b id="nRel">0</b></label>
+      <label><input type="checkbox" data-level="some" checked /><span class="sw hl-some"></span>Some <b id="nSome">0</b></label>
     </div>
     <div id="missing" class="warn" hidden></div>
     <div id="nosource" class="warn" hidden>
@@ -56,10 +57,10 @@
   </section>
 
   <section id="hint" class="hint">
-    Put the cursor in a citation link in your draft. The cited PDF opens here with
-    <span class="sw sw-key"></span>key, <span class="sw sw-rel"></span>relevant and
-    <span class="sw sw-some"></span>somewhat relevant passages highlighted, based on the
-    comment attached to the citation.
+    <p>This pane shows the source of a citation near your cursor, in this pane's colour —
+      the same colour marks the citation in your draft. Stronger colour = more important passage.</p>
+    <p>For the three-column view, open the <span id="otherName">other</span> pane too
+      (References → CiteView) and drag one pane's title bar to the opposite edge of the Word window.</p>
   </section>
 
   <main id="viewer" class="viewer"></main>

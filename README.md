@@ -1,14 +1,23 @@
 # CiteView — Word add-in
 
-Put the cursor in a citation link in your draft. CiteView:
+A three-column reading view for checking citations:
 
-1. marks the citation in the draft (turquoise, removed again when you move on),
-2. opens the cited PDF in the side pane,
-3. highlights passages in three levels based on the comment attached to the citation:
-   **purple** = key part, **green** = relevant, **yellow** = some relevance,
-4. scrolls to the most important passage.
+```
+ Left source pane      |   your draft    |   Right source pane
+ (turquoise)           |                 |   (green)
+ source of the         |  … soils (A).   |   source of the
+ citation at the       |  … north (B).   |   next citation
+ cursor  = A           |                 |   = B
+```
 
-No server, no sign-in, no AI service: everything runs inside the Word task pane.
+- **Colour = which citation.** The left pane's citation is marked turquoise in the draft and its source passages are turquoise; the right pane's are green.
+- **Strength = how relevant.** Strong + underline = key part, medium = relevant, light = some relevance.
+- The panes follow the cursor: left = the citation at or just after the cursor, right = the next one. Reading forward, sources move from right to left. 📌 pins a pane.
+- Word has no way to tell an add-in which text is visible on screen, so "visible" is approximated by the paragraphs around the cursor (2 before, 4 after).
+
+No server, no sign-in, no AI service: everything runs inside Word's side panes.
+
+**Setup:** open References → Left source and References → Right source, then drag the Left pane by its title bar to the left edge of the Word window.
 
 ## How to write the comment
 
@@ -23,12 +32,12 @@ They also recommend timing manure by soil frost instead of calendar dates.
 
 | In the comment | Becomes |
 |---|---|
-| `[key] "exact text"` or just `"exact text"` | purple |
-| `[rel] "exact text"` | green |
-| `[some] "exact text"` | yellow |
-| any other free text | automatic green/yellow: sentences in the PDF that share the most words with your comment and the citing paragraph |
+| `[key] "exact text"` or just `"exact text"` | strong + underline (key) |
+| `[rel] "exact text"` | medium (relevant) |
+| `[some] "exact text"` | light (some relevance) |
+| any other free text | automatic medium/light: sentences in the PDF that share the most words with your comment and the citing paragraph |
 
-Quotes don't need to be letter-perfect: if the exact text isn't found, the closest 1–3 sentences are used (≥ 60 % word match). Quotes that can't be found are listed in the pane. Tags also accept `[k] [r] [s]`, `[purple] [green] [yellow]`, `[avain] [olennainen] [osittain]`.
+Quotes don't need to be letter-perfect: if the exact text isn't found, the closest 1–3 sentences are used (≥ 60 % word match). Quotes that can't be found are listed in the pane. Tags also accept `[k] [r] [s]`, `[avain] [olennainen] [osittain]`.
 
 ## Where sources come from
 
@@ -59,7 +68,7 @@ Then load `manifest.xml` into Word:
 - **Word on Mac:** copy `manifest.xml` to `~/Library/Containers/com.microsoft.Word/Data/Documents/wef/` and restart Word.
 - **Word for the web:** Insert → Add-ins → Upload My Add-in → choose `manifest.xml`.
 
-Open it from **References → Show sources**.
+Open the panes from **References → Left source / Right source**.
 
 ### Host it instead of running it locally
 
@@ -75,7 +84,7 @@ and use the generated `manifest.hosted.xml`. An admin can deploy that manifest t
 
 - Word 2019/2021, Microsoft 365 desktop, Mac or web. Reading comments needs WordApi 1.4 (current Microsoft 365); older Word still opens the PDF but cannot read the comment.
 - PDFs only. Scanned PDFs need OCR first (no text layer = nothing to highlight).
-- The automatic green/yellow matching compares words, so a **Finnish comment won't match an English source** — use quoted passages for those.
+- The automatic matching compares words, so a **Finnish comment won't match an English source** — use quoted passages for those.
 - If Track Changes is on, marking the citation is recorded as a formatting change: untick **Mark in draft**.
 - Publisher landing pages (most `doi.org` links) can't be downloaded from inside Word — add the PDF once.
 
@@ -84,7 +93,8 @@ and use the generated `manifest.hosted.xml`. An admin can deploy that manifest t
 ```
 manifest.xml          add-in manifest (localhost:3000)
 src/taskpane.html     the side pane
-src/taskpane.js       Word side: cursor → citation → comment, marks the citation
+src/taskpane.js       one pane (?slot=left|right): citations near cursor → its citation, comment, mark
+src/slots.js          which citation goes to which pane; pane colours
 src/matcher.js        finds passages for quotes and free text (pure JS, testable in Node)
 src/pdfview.js        PDF.js rendering + highlight boxes
 src/store.js          stored PDFs (IndexedDB) and citation→PDF choices

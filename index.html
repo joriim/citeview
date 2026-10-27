@@ -8,7 +8,8 @@
   <style>
     :root {
       --bg: #fbfaf7; --fg: #1d1b20; --muted: #5f5b66; --line: #e4e0ea; --card: #ffffff;
-      --accent: #5b3fb8; --key: rgba(150, 90, 230, .35); --rel: rgba(40, 180, 90, .32); --some: rgba(255, 210, 0, .45);
+      --accent: #5b3fb8; --key: rgba(0, 170, 190, .45); --rel: rgba(0, 170, 190, .25); --some: rgba(0, 170, 190, .10);
+      --gkey: rgba(40, 175, 60, .45); --grel: rgba(40, 175, 60, .25); --gsome: rgba(40, 175, 60, .10);
       --code: #f1eef6;
     }
     @media (prefers-color-scheme: dark) {
@@ -22,7 +23,13 @@
     h1 { font-size: 30px; margin: 0; letter-spacing: -.3px; }
     .lede { font-size: 18px; color: var(--muted); margin: 6px 0 28px; }
     mark { color: inherit; padding: 0 3px; border-radius: 3px; }
-    .k { background: var(--key); } .r { background: var(--rel); } .s { background: var(--some); }
+    .k { background: var(--key); box-shadow: inset 0 -2px 0 rgb(0, 170, 190); } .r { background: var(--rel); } .s { background: var(--some); box-shadow: inset 0 -1px 0 rgba(0, 170, 190, .55); }
+    .gk { background: var(--gkey); box-shadow: inset 0 -2px 0 rgb(40, 175, 60); } .gr { background: var(--grel); } .gs { background: var(--gsome); box-shadow: inset 0 -1px 0 rgba(40, 175, 60, .55); }
+    .cite-t { background: #00ffff; color: #0563c1; padding: 0 3px; } .cite-g { background: #00ff00; color: #0563c1; padding: 0 3px; }
+    .cols { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 8px; font-size: 13px; margin-top: 10px; }
+    .cols > div { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px; min-width: 0; }
+    .cols .bar-t { border-top: 4px solid rgb(0, 170, 190); } .cols .bar-g { border-top: 4px solid rgb(40, 175, 60); }
+    @media (max-width: 560px) { .cols { grid-template-columns: 1fr; } }
     h2 { font-size: 20px; margin: 40px 0 12px; }
     h3 { font-size: 16px; margin: 0 0 6px; }
     .cards { display: grid; gap: 12px; }
@@ -48,8 +55,13 @@
     <img src="assets/icon-64.png" alt="" />
     <h1>CiteView for Word</h1>
   </header>
-  <p class="lede">Put the cursor on a citation in your draft. The cited PDF opens beside it with the passages you cited marked as
-    <mark class="k">key</mark>, <mark class="r">relevant</mark> and <mark class="s">some relevance</mark>.</p>
+  <p class="lede">Your draft in the middle, the sources of the citations around your cursor on both sides. Each side has its own colour,
+    and the same colour marks the citation in the draft, so you always see which passage belongs to which citation.</p>
+  <div class="cols" aria-hidden="true">
+    <div class="bar-t"><b>Left source</b><br><mark class="k">key passage</mark> · <mark class="r">relevant</mark> · <mark class="s">some</mark></div>
+    <div><b>Draft</b><br>…especially on organic soils <span class="cite-t">(Virtanen 2024)</span>. Freeze-thaw cycles dominate emissions <span class="cite-g">(Korhonen 2023)</span>.</div>
+    <div class="bar-g"><b>Right source</b><br><mark class="gk">key passage</mark> · <mark class="gr">relevant</mark> · <mark class="gs">some</mark></div>
+  </div>
 
   <h2>Install</h2>
   <div class="cards">
@@ -76,16 +88,28 @@
       </ol>
     </div>
   </div>
-  <p class="muted">Then open the add-in from <b>References → Show sources</b>.</p>
+  <p class="muted">Already installed an earlier version? Run the installer again (Mac/web: replace the manifest) and restart Word to get the two panes.</p>
+
+  <h2>Set up the three columns</h2>
+  <div class="cards">
+    <div class="card">
+      <ol>
+        <li>Open <b>References → Left source</b> and <b>References → Right source</b>.</li>
+        <li>Both open on the right. Drag the <b>Left source</b> pane by its title bar to the left edge of the Word window.</li>
+        <li>Widen both panes as you like. Word remembers the layout.</li>
+      </ol>
+      <p class="muted">The left pane shows the citation at (or just after) the cursor, the right pane the next one. Reading forward, sources move from right to left. Pin 📌 a pane to keep its source while the other one follows the cursor.</p>
+    </div>
+  </div>
 
   <h2>Use</h2>
   <div class="cards">
     <div class="card">
       <ol>
-        <li>Click <b>Add folder</b> in the pane and pick the folder with your source PDFs. They are remembered.</li>
+        <li>Click <b>Add folder</b> in either pane and pick the folder with your source PDFs. Both panes use them, and they are remembered.</li>
         <li>Make each citation a hyperlink to its source: the PDF file, or its <code>doi.org</code> address.</li>
         <li>Attach a Word comment to the citation saying what you cite from it.</li>
-        <li>Put the cursor in a citation.</li>
+        <li>Move the cursor in the text. The citations near it open on both sides.</li>
       </ol>
     </div>
   </div>
@@ -96,12 +120,12 @@
 [rel] "On organic soils the leaching losses were nearly twice those of clay soils"
 They also recommend timing manure by soil frost instead of calendar dates.</pre>
   <table>
-    <tr><td><code>[key] "text"</code> or just <code>"text"</code></td><td><mark class="k">key part</mark></td></tr>
-    <tr><td><code>[rel] "text"</code></td><td><mark class="r">relevant</mark></td></tr>
-    <tr><td><code>[some] "text"</code></td><td><mark class="s">some relevance</mark></td></tr>
-    <tr><td>other free text</td><td>matching sentences found automatically, marked <mark class="r">relevant</mark> or <mark class="s">some</mark></td></tr>
+    <tr><td><code>[key] "text"</code> or just <code>"text"</code></td><td><mark class="k">strong + underline</mark> key part</td></tr>
+    <tr><td><code>[rel] "text"</code></td><td><mark class="r">medium</mark> relevant</td></tr>
+    <tr><td><code>[some] "text"</code></td><td><mark class="s">light</mark> some relevance</td></tr>
+    <tr><td>other free text</td><td>matching sentences found automatically, shown <mark class="r">medium</mark> or <mark class="s">light</mark></td></tr>
   </table>
-  <p class="muted">Quotes don’t need to be exact. Automatic matching compares words, so use quotes when the comment and source are in different languages.</p>
+  <p class="muted">The colour (turquoise or green) tells which citation a passage belongs to; the strength tells how important it is. Quotes don’t need to be exact. Automatic matching compares words, so use quotes when the comment and source are in different languages.</p>
 
   <footer>Everything runs inside Word; PDFs stay on your computer. Source: <a href="https://github.com/joriim/citeview">github.com/joriim/citeview</a> · PDF.js © Mozilla, Apache-2.0.</footer>
 </main>
